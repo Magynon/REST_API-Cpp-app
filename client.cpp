@@ -57,6 +57,11 @@ int main(int argc, char *argv[])
             std::cout << "\n";
 
             cookie = loginToServer(sockfd, username, password);
+
+            if (cookie != NULL)
+            {
+                std::cout << "200 - OK - Welcome!\n";
+            }
         }
         else if (strcmp(command, "enter_library") == 0)
         {
@@ -68,6 +73,10 @@ int main(int argc, char *argv[])
 
             std::cout << "\n--------------ENTER LIBRARY---------------\n";
             token = enterLibrary(sockfd, cookie);
+            if (token != NULL)
+            {
+                std::cout << "200 - OK - Entered the library!\n";
+            }
         }
         else if (strcmp(command, "get_books") == 0)
         {
@@ -175,57 +184,6 @@ int main(int argc, char *argv[])
         }
         close_connection(sockfd);
     }
-
-    // Ex 1.2: POST dummy and print response from main server
-    // char **body = (char **)calloc(3, sizeof(char *));
-    // body[0] = (char *)calloc(1, strlen("username=student"));
-    // body[1] = (char *)calloc(1, strlen("password=student"));
-    // strcat(body[0], "username=student");
-    // strcat(body[1], "password=student");
-    // message = compute_post_request("34.241.4.235", "/api/v1/auth/login", "application/x-www-form-urlencoded",
-    //                                body, 2, NULL, 0);
-    // puts(message);
-    // send_to_server(sockfd, message);
-    // response = receive_from_server(sockfd);
-    // puts(response);
-    // Ex 2: Login into main server
-    // Ex 3: GET weather key from main server
-    // Ex 4: GET weather data from OpenWeather API
-    // char *sid = (char *)malloc(1000);
-    // strcpy(sid, "connect.sid=s%3Ap1I4RKMMkkfar7DnctiTYXFLmngpT1Q8.A7GlbN%2BlqMv%2FMffVALR1eZjhfncYvFTJW3%2BvpOngliA\0");
-
-    // body[0] = (char *)realloc(body[0], strlen(sid));
-    // body[0] = sid;
-
-    // message = compute_get_request("34.241.4.235", "/api/v1/weather/key", NULL,
-    //                               body, 1);
-
-    // puts(message);
-    // send_to_server(sockfd, message);
-    // response = receive_from_server(sockfd);
-    // puts(response);
-
-    // Ex 5: POST weather data for verification to main server
-    // close_connection(sockfd);
-
-    // sockfd = open_connection("34.241.4.235", 80, AF_INET, SOCK_STREAM, 0);
-
-    // char *query = (char *)malloc(1000);
-
-    // strcpy(query, "lat=44.7398&lon=22.2767&appid=b912dd495585fbf756dc6d8f415a7649");
-
-    // message = compute_get_request("34.241.4.235", "/data/2.5/weather", query,
-    //                               NULL, 0);
-
-    // puts(message);
-    // send_to_server(sockfd, message);
-    // response = receive_from_server(sockfd);
-    // puts(response);
-    // Ex 6: Logout from main server
-
-    // BONUS: make the main server return "Already logged in!"
-
-    // free the allocated data at the end!
 
     return 0;
 }
